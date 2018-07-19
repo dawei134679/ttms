@@ -52,7 +52,6 @@ $(document).ready(function(){
 	$('#btn-login').click(doLogin)
 })
 function doLogin(){
-	debugger
 	var userName = $('#username').val();
 	var userPwd = $('#userpwd').val();
 	if(userName==''){

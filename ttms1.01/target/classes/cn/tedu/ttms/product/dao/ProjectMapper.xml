@@ -1,122 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- 
- 1.拷贝mapper文件模板
- 2.修改命名空间
- 3.修改spring-mybatis.xml配置文件,
-     在sqlSessionFactory的配置中,修改
-     扫描mapper文件的路径
- -->
+<!-- 1.拷贝mapper文件模板 2.修改命名空间 3.修改spring-mybatis.xml配置文件, 在sqlSessionFactory的配置中,修改 
+	扫描mapper文件的路径 -->
 <mapper namespace="cn.tedu.ttms.product.dao.ProjectDao">
-     <!--通过sql标签定义SQL内容 :
-              一般会对sql语句中重复出现语句可以
-              通多sql标签进行提取,然后再借助
-        include元素进行包含-->
-     <sql id="pageQueryWhere">
-       <where>
-             <if test="name!=null and name!=''">
-                 name like concat("%",#{name},"%")
-             </if>
-             <if test="valid!=null">
-                 and valid=#{valid}
-             </if>
-       </where>
-     </sql>
-     <!-- 定义一个SQL实现简单查询 
-     select 元素中:
-     1)id 一定要与对应dao中的findPageObjects方法名一致
-     2)resultType 对应一条记录要映射的那个对象
-     --> 
-     <select id="findPageObjects" 
-             resultType="cn.tedu.ttms.product.entity.Project">
-         select *
-         from tms_projects
-         <!-- 通过动态sql实现SQL语句的拼接 -->
-         <include refid="pageQueryWhere"/>
-         order by createdTime
-         limit #{startIndex},#{pageSize}
-     </select>
-     <!-- 获得总记录数(目的是根据此值计算总页数)-->
-     <select id="getRowCount"
-             resultType="int">
-         select count(*) 
-         from tms_projects
-         <!-- 根据查询条件进行数据统计 -->
-         <include refid="pageQueryWhere"/>
-     </select>
-     <!-- 禁用启用 (1,2,3,4,5)-->
-     <update id="validById">
-        update tms_projects
-        set valid=#{valid}
-        where id in 
-        <foreach collection="ids"
-        open="(" close=")" 
-        separator="," item="item">
-        #{item}
-        </foreach>
-     </update>
-     <update id="updateObject"
-             parameterType="cn.tedu.ttms.product.entity.Project">
-        update tms_projects
-        set 
-        code=#{code},
-        name=#{name},
-        beginDate=#{beginDate},
-        endDate=#{endDate},
-        valid=#{valid},
-        note=#{note},
-        modifiedTime=NOW(),
-        modifiedUser=#{modifiedUser}
-        where id=#{id}
-     
-     </update>
-     
-     <select id="findIdAndNames"
-     resultType="cn.tedu.ttms.common.vo.IdName">
-         select id,name
-         from tms_projects
-         where valid=1
-     </select>
-     
-     
-     <!-- 数据的写入 -->
-     <insert id="insertObject"
-             parameterType="cn.tedu.ttms.product.entity.Project">
-        insert into tms_projects
-        (
-        id,
-        name,
-        code,
-        beginDate,
-        endDate,
-        valid,
-        note,
-        createdTime,
-        modifiedTime,
-        createdUser,
-        modifiedUser
-        )
-        values(
-        #{id},
-        #{name},
-        #{code},
-        #{beginDate},
-        #{endDate},
-        #{valid},
-        #{note},
-        NOW(),
-        NOW(),
-        #{createdUser},
-        #{modifiedUser})
-     </insert>
-     <!-- 根据id执行查询操作 -->
-     <select id="findObjectById" 
-     resultType="cn.tedu.ttms.product.entity.Project">
-        select *
-        from tms_projects
-        where id=#{id}
-     </select>
-     
+	<!--通过sql标签定义SQL内容 : 一般会对sql语句中重复出现语句可以 通多sql标签进行提取,然后再借助 include元素进行包含 -->
+	<sql id="pageQueryWhere">
+		<where>
+			<if test="name!=null and name!=''">
+				name like concat("%",#{name},"%")
+			</if>
+			<if test="valid!=null">
+				and valid=#{valid}
+			</if>
+		</where>
+	</sql>
+	<!-- 定义一个SQL实现简单查询 select 元素中: 1)id 一定要与对应dao中的findPageObjects方法名一致 2)resultType 
+		对应一条记录要映射的那个对象 -->
+	<select id="findPageObjects" resultType="cn.tedu.ttms.product.entity.Project">
+		select *
+		from tms_projects
+		<!-- 通过动态sql实现SQL语句的拼接 -->
+		<include refid="pageQueryWhere" />
+		order by createdTime
+		limit #{startIndex},#{pageSize}
+	</select>
+	<!-- 获得总记录数(目的是根据此值计算总页数) -->
+	<select id="getRowCount" resultType="int">
+		select count(*)
+		from tms_projects
+		<!-- 根据查询条件进行数据统计 -->
+		<include refid="pageQueryWhere" />
+	</select>
+	<!-- 禁用启用 (1,2,3,4,5) -->
+	<update id="validById">
+		update tms_projects
+		set valid=#{valid}
+		where id in
+		<foreach collection="ids" open="(" close=")" separator=","
+			item="item">
+			#{item}
+		</foreach>
+	</update>
+	<update id="updateObject" parameterType="cn.tedu.ttms.product.entity.Project">
+		update tms_projects
+		set
+		code=#{code},
+		name=#{name},
+		beginDate=#{beginDate},
+		endDate=#{endDate},
+		valid=#{valid},
+		note=#{note},
+		modifiedTime=NOW(),
+		modifiedUser=#{modifiedUser}
+		where id=#{id}
+
+	</update>
+
+	<select id="findIdAndNames" resultType="cn.tedu.ttms.common.vo.IdName">
+		select id,name
+		from tms_projects
+		where valid=1
+	</select>
+
+
+	<!-- 数据的写入 -->
+	<insert id="insertObject" parameterType="cn.tedu.ttms.product.entity.Project">
+		insert into tms_projects
+		(
+		id,
+		name,
+		code,
+		beginDate,
+		endDate,
+		valid,
+		note,
+		createdTime,
+		modifiedTime,
+		createdUser,
+		modifiedUser
+		)
+		values(
+		#{id},
+		#{name},
+		#{code},
+		#{beginDate},
+		#{endDate},
+		#{valid},
+		#{note},
+		NOW(),
+		NOW(),
+		#{createdUser},
+		#{modifiedUser})
+	</insert>
+	<!-- 根据id执行查询操作 -->
+	<select id="findObjectById" resultType="cn.tedu.ttms.product.entity.Project">
+		select *
+		from tms_projects
+		where id=#{id}
+	</select>
+
 </mapper>
 
 

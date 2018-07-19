@@ -1,65 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.tedu.ttms.product.dao.ProductTypeDao">
-    <select id="findObjectById"
-       resultType="map">
-       select c.*,p.name parentName
-       from tms_classes c left join tms_classes p
-       on c.parentId=p.id
-       where c.id=#{id}
-    </select>
-    <update id="updateObject"
-            parameterType="productType">
-        update tms_classes
-        set 
-        name=#{name},
-        parentId=#{parentId},
-        sort=#{sort},
-        note=#{note},
-        modifiedTime=NOW(),
-        modifiedUser=#{modifiedUser}
-        where id=#{id}
-    </update>
-    <select id="findGridTreeNodes"
-       resultType="map">
-       select c.*,p.name parentName
-       from tms_classes c left join tms_classes p
-       on c.parentId=p.id
-    </select>
-    <!-- 获得zTree上的节点 -->
-   <select id="findZTreeNodes"
-      resultType="map">
-      select id,parentId,name
-      from tms_classes;
-   </select>
-    <select id="hasChildType"
-            parameterType="integer"
-            resultType="int">
-         select count(*)
-         from tms_classes
-         where parentId=#{id}
-    </select>
-    
-    <delete id="deleteObject" 
-            parameterType="integer">
-         delete from tms_classes
-         where id=#{id}
-    </delete>
-    
-    <insert id="insertObject"
-            parameterType="productType">
-         insert into tms_classes
-         (name,parentId,sort,note,
-         createdTime,modifiedTime,
-         createdUser,modifiedUser)
-         values
-         (
-         #{name},#{parentId},#{sort},
-         #{note},now(),now(),
-         #{createdUser},#{modifiedUser}
-         )
-    </insert>
-     
+	<select id="findObjectById" resultType="map">
+		select c.*,p.name parentName
+		from tms_classes c left join tms_classes p
+		on c.parentId=p.id
+		where c.id=#{id}
+	</select>
+	<update id="updateObject" parameterType="productType">
+		update tms_classes
+		set
+		name=#{name},
+		parentId=#{parentId},
+		sort=#{sort},
+		note=#{note},
+		modifiedTime=NOW(),
+		modifiedUser=#{modifiedUser}
+		where id=#{id}
+	</update>
+	<select id="findGridTreeNodes" resultType="map">
+		select c.*,p.name parentName
+		from tms_classes c left join tms_classes p
+		on c.parentId=p.id
+	</select>
+	<!-- 获得zTree上的节点 -->
+	<select id="findZTreeNodes" resultType="map">
+		select id,parentId,name
+		from tms_classes;
+	</select>
+	<select id="hasChildType" parameterType="integer" resultType="int">
+		select count(*)
+		from tms_classes
+		where parentId=#{id}
+	</select>
+
+	<delete id="deleteObject" parameterType="integer">
+		delete from tms_classes
+		where id=#{id}
+	</delete>
+
+	<insert id="insertObject" parameterType="productType">
+		insert into tms_classes
+		(name,parentId,sort,note,
+		createdTime,modifiedTime,
+		createdUser,modifiedUser)
+		values
+		(
+		#{name},#{parentId},#{sort},
+		#{note},now(),now(),
+		#{createdUser},#{modifiedUser}
+		)
+	</insert>
+
 </mapper>
 
 
