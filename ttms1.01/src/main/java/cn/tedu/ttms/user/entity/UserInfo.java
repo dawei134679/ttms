@@ -1,29 +1,25 @@
 package cn.tedu.ttms.user.entity;
 
-import java.util.Date;
-
 public class UserInfo {
     private Integer id;
 
-    private String username;
+    private Integer roleid;
+
+    private String account;
 
     private String password;
 
-    private String salt;
+    private Integer status;
 
-    private String email;
+    private String note;
 
-    private String mobile;
+    private Long createdtime;
 
-    private Byte valid;
+    private Integer createuser;
 
-    private Date createdtime;
+    private Long updatetime;
 
-    private Date modifiedtime;
-
-    private String createduser;
-
-    private String modifieduser;
+    private Long updateuser;
 
     public Integer getId() {
         return id;
@@ -33,12 +29,20 @@ public class UserInfo {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getRoleid() {
+        return roleid;
     }
 
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account == null ? null : account.trim();
     }
 
     public String getPassword() {
@@ -49,67 +53,51 @@ public class UserInfo {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getSalt() {
-        return salt;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt == null ? null : salt.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public String getEmail() {
-        return email;
+    public String getNote() {
+        return note;
     }
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+    public void setNote(String note) {
+        this.note = note == null ? null : note.trim();
     }
 
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile == null ? null : mobile.trim();
-    }
-
-    public Byte getValid() {
-        return valid;
-    }
-
-    public void setValid(Byte valid) {
-        this.valid = valid;
-    }
-
-    public Date getCreatedtime() {
+    public Long getCreatedtime() {
         return createdtime;
     }
 
-    public void setCreatedtime(Date createdtime) {
+    public void setCreatedtime(Long createdtime) {
         this.createdtime = createdtime;
     }
 
-    public Date getModifiedtime() {
-        return modifiedtime;
+    public Integer getCreateuser() {
+        return createuser;
     }
 
-    public void setModifiedtime(Date modifiedtime) {
-        this.modifiedtime = modifiedtime;
+    public void setCreateuser(Integer createuser) {
+        this.createuser = createuser;
     }
 
-    public String getCreateduser() {
-        return createduser;
+    public Long getUpdatetime() {
+        return updatetime;
     }
 
-    public void setCreateduser(String createduser) {
-        this.createduser = createduser == null ? null : createduser.trim();
+    public void setUpdatetime(Long updatetime) {
+        this.updatetime = updatetime;
     }
 
-    public String getModifieduser() {
-        return modifieduser;
+    public Long getUpdateuser() {
+        return updateuser;
     }
 
-    public void setModifieduser(String modifieduser) {
-        this.modifieduser = modifieduser == null ? null : modifieduser.trim();
+    public void setUpdateuser(Long updateuser) {
+        this.updateuser = updateuser;
     }
 }

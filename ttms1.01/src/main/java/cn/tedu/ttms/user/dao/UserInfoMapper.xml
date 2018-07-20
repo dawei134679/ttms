@@ -3,162 +3,157 @@
 <mapper namespace="cn.tedu.ttms.user.dao.UserInfoDao" >
   <resultMap id="BaseResultMap" type="cn.tedu.ttms.user.entity.UserInfo" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="roleId" property="roleid" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="salt" property="salt" jdbcType="VARCHAR" />
-    <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
-    <result column="valid" property="valid" jdbcType="TINYINT" />
-    <result column="createdTime" property="createdtime" jdbcType="TIMESTAMP" />
-    <result column="modifiedTime" property="modifiedtime" jdbcType="TIMESTAMP" />
-    <result column="createdUser" property="createduser" jdbcType="VARCHAR" />
-    <result column="modifiedUser" property="modifieduser" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="createdTime" property="createdtime" jdbcType="BIGINT" />
+    <result column="createUser" property="createuser" jdbcType="INTEGER" />
+    <result column="updateTime" property="updatetime" jdbcType="BIGINT" />
+    <result column="updateUser" property="updateuser" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, username, password, salt, email, mobile, valid, createdTime, modifiedTime, createdUser, 
-    modifiedUser
+    id, roleId, account, password, status, note, createdTime, createUser, updateTime, 
+    updateUser
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from sys_users
+    from system_user_info
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from sys_users
+    delete from system_user_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="cn.tedu.ttms.user.entity.UserInfo" >
-    insert into sys_users (id, username, password, 
-      salt, email, mobile, 
-      valid, createdTime, modifiedTime, 
-      createdUser, modifiedUser)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{salt,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
-      #{valid,jdbcType=TINYINT}, #{createdtime,jdbcType=TIMESTAMP}, #{modifiedtime,jdbcType=TIMESTAMP}, 
-      #{createduser,jdbcType=VARCHAR}, #{modifieduser,jdbcType=VARCHAR})
+    insert into system_user_info (id, roleId, account, 
+      password, status, note, 
+      createdTime, createUser, updateTime, 
+      updateUser)
+    values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{note,jdbcType=VARCHAR}, 
+      #{createdtime,jdbcType=BIGINT}, #{createuser,jdbcType=INTEGER}, #{updatetime,jdbcType=BIGINT}, 
+      #{updateuser,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="cn.tedu.ttms.user.entity.UserInfo" >
-    insert into sys_users
+    insert into system_user_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="username != null" >
-        username,
+      <if test="roleid != null" >
+        roleId,
+      </if>
+      <if test="account != null" >
+        account,
       </if>
       <if test="password != null" >
         password,
       </if>
-      <if test="salt != null" >
-        salt,
+      <if test="status != null" >
+        status,
       </if>
-      <if test="email != null" >
-        email,
-      </if>
-      <if test="mobile != null" >
-        mobile,
-      </if>
-      <if test="valid != null" >
-        valid,
+      <if test="note != null" >
+        note,
       </if>
       <if test="createdtime != null" >
         createdTime,
       </if>
-      <if test="modifiedtime != null" >
-        modifiedTime,
+      <if test="createuser != null" >
+        createUser,
       </if>
-      <if test="createduser != null" >
-        createdUser,
+      <if test="updatetime != null" >
+        updateTime,
       </if>
-      <if test="modifieduser != null" >
-        modifiedUser,
+      <if test="updateuser != null" >
+        updateUser,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
+      <if test="roleid != null" >
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="salt != null" >
-        #{salt,jdbcType=VARCHAR},
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
       </if>
-      <if test="email != null" >
-        #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null" >
-        #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="valid != null" >
-        #{valid,jdbcType=TINYINT},
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
       </if>
       <if test="createdtime != null" >
-        #{createdtime,jdbcType=TIMESTAMP},
+        #{createdtime,jdbcType=BIGINT},
       </if>
-      <if test="modifiedtime != null" >
-        #{modifiedtime,jdbcType=TIMESTAMP},
+      <if test="createuser != null" >
+        #{createuser,jdbcType=INTEGER},
       </if>
-      <if test="createduser != null" >
-        #{createduser,jdbcType=VARCHAR},
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=BIGINT},
       </if>
-      <if test="modifieduser != null" >
-        #{modifieduser,jdbcType=VARCHAR},
+      <if test="updateuser != null" >
+        #{updateuser,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.tedu.ttms.user.entity.UserInfo" >
-    update sys_users
+    update system_user_info
     <set >
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
+      <if test="roleid != null" >
+        roleId = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="salt != null" >
-        salt = #{salt,jdbcType=VARCHAR},
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
       </if>
-      <if test="email != null" >
-        email = #{email,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null" >
-        mobile = #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="valid != null" >
-        valid = #{valid,jdbcType=TINYINT},
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
       </if>
       <if test="createdtime != null" >
-        createdTime = #{createdtime,jdbcType=TIMESTAMP},
+        createdTime = #{createdtime,jdbcType=BIGINT},
       </if>
-      <if test="modifiedtime != null" >
-        modifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
+      <if test="createuser != null" >
+        createUser = #{createuser,jdbcType=INTEGER},
       </if>
-      <if test="createduser != null" >
-        createdUser = #{createduser,jdbcType=VARCHAR},
+      <if test="updatetime != null" >
+        updateTime = #{updatetime,jdbcType=BIGINT},
       </if>
-      <if test="modifieduser != null" >
-        modifiedUser = #{modifieduser,jdbcType=VARCHAR},
+      <if test="updateuser != null" >
+        updateUser = #{updateuser,jdbcType=BIGINT},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.tedu.ttms.user.entity.UserInfo" >
-    update sys_users
-    set username = #{username,jdbcType=VARCHAR},
+    update system_user_info
+    set roleId = #{roleid,jdbcType=INTEGER},
+      account = #{account,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      salt = #{salt,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR},
-      valid = #{valid,jdbcType=TINYINT},
-      createdTime = #{createdtime,jdbcType=TIMESTAMP},
-      modifiedTime = #{modifiedtime,jdbcType=TIMESTAMP},
-      createdUser = #{createduser,jdbcType=VARCHAR},
-      modifiedUser = #{modifieduser,jdbcType=VARCHAR}
+      status = #{status,jdbcType=BIT},
+      note = #{note,jdbcType=VARCHAR},
+      createdTime = #{createdtime,jdbcType=BIGINT},
+      createUser = #{createuser,jdbcType=INTEGER},
+      updateTime = #{updatetime,jdbcType=BIGINT},
+      updateUser = #{updateuser,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+   <select id="getUserInfoByAcount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_user_info
+    where account = #{account}
+  </select>
 </mapper>
