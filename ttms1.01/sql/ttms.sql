@@ -1,25 +1,45 @@
-DROP database IF EXISTS ttms;
-CREATE database ttms DEFAULT CHARACTER SET 'utf8';
-use ttms;
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : ttms
-Source Server Version : 50715
+Source Server         : 本机
+Source Server Version : 50560
 Source Host           : localhost:3306
 Source Database       : ttms
 
 Target Server Type    : MYSQL
-Target Server Version : 50715
+Target Server Version : 50560
 File Encoding         : 65001
 
-Date: 2017-08-30 17:35:52
+Date: 2018-07-20 14:37:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for sys_menus
+-- Table structure for `system_user_info`
+-- ----------------------------
+DROP TABLE IF EXISTS `system_user_info`;
+CREATE TABLE `system_user_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户表主键',
+  `roleId` int(11) NOT NULL DEFAULT '1' COMMENT '权限ID',
+  `account` varchar(50) NOT NULL DEFAULT '' COMMENT '用户账号',
+  `password` varchar(50) NOT NULL DEFAULT '' COMMENT '用户密码',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '用户状态(1.正常 2.禁用)',
+  `note` varchar(255) NOT NULL DEFAULT '' COMMENT '注释',
+  `createdTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `createUser` int(11) NOT NULL DEFAULT '0' COMMENT '创建用户Id',
+  `updateTime` bigint(20) NOT NULL DEFAULT '0' COMMENT '修改时间',
+  `updateUser` bigint(11) NOT NULL DEFAULT '0' COMMENT '修改Id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of system_user_info
+-- ----------------------------
+INSERT INTO `system_user_info` VALUES ('1', '1', 'admin', 'admin', '1', '', '0', '0', '0', '0');
+
+-- ----------------------------
+-- Table structure for `sys_menus`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menus`;
 CREATE TABLE `sys_menus` (
@@ -77,7 +97,7 @@ INSERT INTO `sys_menus` VALUES ('139', '修改', '', '2', '5', null, '11', 'prod
 INSERT INTO `sys_menus` VALUES ('140', '产品分类', 'type/listUI.do', '1', '30', null, '3', 'product:type:view', '2017-08-29 14:19:34', '2017-08-29 14:19:34', null, null);
 
 -- ----------------------------
--- Table structure for sys_roles
+-- Table structure for `sys_roles`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_roles`;
 CREATE TABLE `sys_roles` (
@@ -99,7 +119,7 @@ INSERT INTO `sys_roles` VALUES ('2', '产品经理', '产品经理', '2017-07-13
 INSERT INTO `sys_roles` VALUES ('38', '团负责人', '只能查看项目', '2017-07-21 17:09:23', '2017-08-29 14:31:07', null, null);
 
 -- ----------------------------
--- Table structure for sys_role_menus
+-- Table structure for `sys_role_menus`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menus`;
 CREATE TABLE `sys_role_menus` (
@@ -163,7 +183,7 @@ INSERT INTO `sys_role_menus` VALUES ('1169', '38', '12');
 INSERT INTO `sys_role_menus` VALUES ('1170', '38', '13');
 
 -- ----------------------------
--- Table structure for sys_users
+-- Table structure for `sys_users`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_users`;
 CREATE TABLE `sys_users` (
@@ -193,7 +213,7 @@ INSERT INTO `sys_users` VALUES ('5', 'fanwei', '1acab7425d6dfae670f26bd160518902
 INSERT INTO `sys_users` VALUES ('6', 'wumei', '431ebdcccf3404787a144f9ba669a8e2', '8a14f46f-7a17-4dfe-85ab-08e63cb618ce', 'wumei@tedu.cn', '13567898765', '1', '2017-07-21 10:57:40', '2017-07-21 10:58:21', null, null);
 
 -- ----------------------------
--- Table structure for sys_user_roles
+-- Table structure for `sys_user_roles`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_roles`;
 CREATE TABLE `sys_user_roles` (
@@ -214,7 +234,7 @@ INSERT INTO `sys_user_roles` VALUES ('23', '2', '38');
 INSERT INTO `sys_user_roles` VALUES ('25', '3', '2');
 
 -- ----------------------------
--- Table structure for tms_attachements
+-- Table structure for `tms_attachements`
 -- ----------------------------
 DROP TABLE IF EXISTS `tms_attachements`;
 CREATE TABLE `tms_attachements` (
@@ -231,16 +251,17 @@ CREATE TABLE `tms_attachements` (
   `modifiedUser` varchar(255) DEFAULT NULL COMMENT '修改人用户名',
   `modifiedTime` datetime DEFAULT NULL COMMENT '最后修改时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tms_attachements
 -- ----------------------------
 INSERT INTO `tms_attachements` VALUES ('1', 'A', 'net01.txt', 'text/plain', 'd:\\uploads\\2017\\08\\28\\38c694a6-ef99-4c1b-89a7-87c5df2d893f.txt', 'b02ff4b24d84fb95e93c52ef05e9a186', '1', '1', null, '2017-08-28 16:43:01', null, '2017-08-28 16:43:01');
 INSERT INTO `tms_attachements` VALUES ('2', 'B', 'book.txt', 'text/plain', 'd:\\uploads\\2017\\08\\28\\6ed86e9b-4274-4336-b591-4db40146d71e.txt', '3edd95d67db776bbe474b70502f7b2f2', '1', '1', null, '2017-08-28 16:58:50', null, '2017-08-28 16:58:50');
+INSERT INTO `tms_attachements` VALUES ('3', 'dawei', 'guitar hero 3 - 2 - esrb t pegi 12+.jps', 'image/jps', 'd:\\upload\\2018\\07\\20\\9c561b3b-1f2c-411b-aed2-7c29b1de0276.jps', 'ea0f7cd9a33148acb443f72f015c27ca', null, null, null, '2018-07-20 14:10:06', null, '2018-07-20 14:10:06');
 
 -- ----------------------------
--- Table structure for tms_classes
+-- Table structure for `tms_classes`
 -- ----------------------------
 DROP TABLE IF EXISTS `tms_classes`;
 CREATE TABLE `tms_classes` (
@@ -266,7 +287,7 @@ INSERT INTO `tms_classes` VALUES ('4', '河北', '5', '2', '河北', null, '2017
 INSERT INTO `tms_classes` VALUES ('5', '南戴河', null, '4', '南戴河', null, '2017-08-28 16:58:18', null, '2017-08-28 16:58:18');
 
 -- ----------------------------
--- Table structure for tms_products
+-- Table structure for `tms_products`
 -- ----------------------------
 DROP TABLE IF EXISTS `tms_products`;
 CREATE TABLE `tms_products` (
@@ -297,7 +318,7 @@ CREATE TABLE `tms_products` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for tms_projects
+-- Table structure for `tms_projects`
 -- ----------------------------
 DROP TABLE IF EXISTS `tms_projects`;
 CREATE TABLE `tms_projects` (
@@ -323,7 +344,7 @@ INSERT INTO `tms_projects` VALUES ('3', 'tt-20170828-CN-BJ-001', '月球游', '2
 INSERT INTO `tms_projects` VALUES ('4', 'tt-20170901-CN-BJ-001', '北欧游', '2017-09-02 00:00:00', '2017-09-20 00:00:00', '0', '北欧游。。。', '2017-08-28 16:48:31', '2017-08-29 15:52:57', null, null);
 
 -- ----------------------------
--- Table structure for tms_teams
+-- Table structure for `tms_teams`
 -- ----------------------------
 DROP TABLE IF EXISTS `tms_teams`;
 CREATE TABLE `tms_teams` (
